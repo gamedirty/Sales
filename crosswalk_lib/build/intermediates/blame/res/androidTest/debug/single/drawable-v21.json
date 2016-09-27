@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/drawable-v21/button_compat.xml",
+        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/drawable-v21/button_compat.xml"
+    },
+    {
+        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/drawable-v21/button_borderless_compat.xml",
+        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/drawable-v21/button_borderless_compat.xml"
+    }
+]

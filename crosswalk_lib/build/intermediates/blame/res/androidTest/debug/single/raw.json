@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/raw/xwalk_100_percent.pak",
+        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/raw/xwalk_100_percent.pak"
+    },
+    {
+        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/raw/xwalk.pak",
+        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/raw/xwalk.pak"
+    },
+    {
+        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/raw/wifidirect_api.js",
+        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/raw/wifidirect_api.js"
+    },
+    {
+        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/raw/device_capabilities_api.js",
+        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/raw/device_capabilities_api.js"
+    },
+    {
+        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/raw/launch_screen_api.js",
+        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/raw/launch_screen_api.js"
+    },
+    {
+        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/raw/icudtl.dat",
+        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/raw/icudtl.dat"
+    },
+    {
+        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/raw/messaging_api.js",
+        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/raw/messaging_api.js"
+    },
+    {
+        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/raw/contacts_api.js",
+        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/raw/contacts_api.js"
+    },
+    {
+        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/raw/empty.wav",
+        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/raw/empty.wav"
+    }
+]

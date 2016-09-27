@@ -1,0 +1,1 @@
+include ':app', ':jsbridge_libs', ':crosswalk_lib', ':jsbridge_libs4crosswalk'

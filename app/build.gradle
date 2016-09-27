@@ -1,0 +1,145 @@
+apply plugin: 'com.android.application'
+
+android {
+  compileSdkVersion 24
+  buildToolsVersion "24.0.2"
+
+  defaultConfig {
+    applicationId "com.elianshang.yougong.sales"
+    minSdkVersion 16
+    targetSdkVersion 24
+    versionCode 1
+    versionName "1.0"
+  }
+
+
+  /**
+   * 签名配置
+   * */
+  signingConfigs {
+    releaseConfig {
+      keyAlias 'lsh.keystore'
+      keyPassword 'lianshang'
+      storeFile file('./lsh.keystore')
+      storePassword 'lianshang'
+    }
+  }
+
+
+  buildTypes {
+    /**
+     * 调试模式
+     * */
+    debug {
+
+      /**
+       * 压缩安装包
+       * */
+      zipAlignEnabled true
+
+      /**
+       * 移除无用的resource文件
+       * */
+      shrinkResources true
+
+      /**
+       * 是否进行混淆
+       * */
+      minifyEnabled false
+
+      /**
+       * 混淆文件的位置，前一部分是系统默认的混淆声明，后一部分是自定义的混淆声明
+       * */
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+      /**
+       * 签名配置
+       * */
+      signingConfig signingConfigs.releaseConfig
+
+      manifestPlaceholders = [DEBUGABLE: "true"]
+
+    }
+    /**
+     * 发布模式
+     * */
+    release {
+
+      /**
+       * 压缩安装包
+       * */
+      zipAlignEnabled true
+
+      /**
+       * 移除无用的resource文件
+       * */
+      shrinkResources true
+
+      /**
+       * 是否进行混淆
+       * */
+      minifyEnabled true
+
+      /**
+       * 混淆文件的位置，前一部分是系统默认的混淆声明，后一部分是自定义的混淆声明
+       * */
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+      /**
+       * 签名配置
+       * */
+      signingConfig signingConfigs.releaseConfig
+
+      manifestPlaceholders = [DEBUGABLE: "false"]
+
+
+      /**
+       * 打多渠道包
+       * */
+      applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+          def outputFile = output.outputFile
+          if (outputFile != null && outputFile.name.endsWith('.apk')) {
+            def fileName = "lsh_sales_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+            output.outputFile = new File(outputFile.parent, fileName)
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * 多渠道名字
+   * */
+  productFlavors {
+    office {}
+    ttest{}
+  }
+
+  /**
+   * 将渠道名赋给Umeng渠道
+   * */
+  productFlavors.all { flavor ->
+    if ("ttest" == name) {
+      manifestPlaceholders = [DEBUGABLE: "true"]
+    } else if ("office" == name) {
+      manifestPlaceholders = [DEBUGABLE: "false"]
+    }
+  }
+
+
+  sourceSets {
+    main {
+      jniLibs.srcDirs = ['libs']
+    }
+  }
+}
+
+dependencies {
+  compile fileTree(include: ['*.jar'], dir: 'libs')
+  compile 'com.android.support:appcompat-v7:24.2.0'
+  compile project(':jsbridge_libs')
+  compile 'pub.devrel:easypermissions:0.2.0'
+  //  compile 'com.squareup.okhttp3:okhttp:3.4.1'
+//  compile 'com.google.code.gson:gson:2.7'
+}

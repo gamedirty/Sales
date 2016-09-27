@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">销售端</string>
+    <string name="confirm">确定</string>
+    <string name="exit">退出</string>
+    <string name="permis_request">为了更好的服务您,需要申请读取手机设备信息、访问存储、定位和拍照的权限</string>
+    <string name="title_settings_dialog">权限申请</string>
+    <string name="setting">设置</string>
+    <string name="cancel">取消</string>
+</resources>

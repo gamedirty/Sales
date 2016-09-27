@@ -1,0 +1,7 @@
+/build
+/.idea
+/.gradle
+/gradle
+/captures
+LianShangShop.iml
+local.properties
