@@ -44,15 +44,8 @@ public class BridgeWebViewClient extends XWalkResourceClient {
     public void onLoadFinished(XWalkView view, String url) {
         super.onLoadFinished(view, url);
         Log.i("zhjh","onLoadFinished---------------------:"+url);
-    }
-
-    @Override
-    public void onProgressChanged(XWalkView view, int progressInPercent) {
-        super.onProgressChanged(view, progressInPercent);
-        if (progressInPercent>=30){
-            if (BridgeWebView.toLoadJs != null) {
-                BridgeUtil.webViewLoadLocalJs(view, BridgeWebView.toLoadJs);
-            }
+        if (BridgeWebView.toLoadJs != null) {
+            BridgeUtil.webViewLoadLocalJs(view, BridgeWebView.toLoadJs);
         }
     }
 }

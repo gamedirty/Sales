@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.util.JsonWriter;
 import android.util.Log;
 
+import android.webkit.WebSettings;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xwalk.core.XWalkUIClient;
@@ -62,28 +63,27 @@ public class BridgeWebView extends XWalkView implements WebViewJavascriptBridge 
   }
 
   private void init() {
-    String ua = this.getUserAgentString();
-    ua += ("/lianshang_android" + "/" + "1.8");
+    setUseragent(false);
 
-    JSONObject jo = new JSONObject();
-    try {
-      jo.put("platform", "android");
-      jo.put("device_id",
-          "" + DeviceTool.getDeviceID(getContext(), DeviceTool.getIMEI(getContext())));
-      jo.put("imei", "" + DeviceTool.getIMEI(getContext()));
-      jo.put("brand", "" + DeviceTool.getBrandName());
-      jo.put("device_name", "" + DeviceTool.getDeviceName());
-      jo.put("os_version", "" + DeviceTool.getOSVersionName());
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
-    Log.i("zhjh", "useragent:" + ua + jo.toString());
-    this.setUserAgentString(ua + jo.toString());
+
     this.setVerticalScrollBarEnabled(false);
     this.setHorizontalScrollBarEnabled(false);
     this.setOnLongClickListener(null);
     this.setUIClient(generateBridgeWebViewClient());
     this.setResourceClient(generateBridgeWebViewUIClient());
+  }
+
+  public void setUseragent(boolean needPerm) {
+    String ua = this.getUserAgentString();
+    ua += ("/lianshang_android" + "/" + "1.8");
+    ua += (" device_name" + "/" + DeviceTool.getDeviceName());
+    ua += (" device_version/" + DeviceTool.getOSVersionName());
+    if (needPerm) {
+      ua +=
+          (" device_id/" + DeviceTool.getDeviceID(getContext(), DeviceTool.getIMEI(getContext())));
+    }
+    Log.i("zhjh", "useragent:" + ua);
+    this.setUserAgentString(ua);
   }
 
   protected XWalkUIClient generateBridgeWebViewClient() {
@@ -96,10 +96,8 @@ public class BridgeWebView extends XWalkView implements WebViewJavascriptBridge 
 
   void handlerReturnData(String url) {
     String functionName = BridgeUtil.getFunctionFromReturnUrl(url);
-    Log.i("zhjh", "URL中的方法是:" + functionName);
     CallBackFunction f = responseCallbacks.get(functionName);
     String data = BridgeUtil.getDataFromReturnUrl(url);
-    Log.i("zhjh", "URL中的数据是:" + data);
     if (f != null) {
       f.onCallBack(data);
       responseCallbacks.remove(functionName);

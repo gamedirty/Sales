@@ -17,40 +17,37 @@ import org.json.JSONObject;
  * @date 16/8/23.
  */
 public class BaseBridgeActivity extends AppCompatActivity {
-    public static final int REQUESTCODE_TAKE_PHOTO = 0x01;
+  public static final int REQUESTCODE_TAKE_PHOTO = 0x01;
 
+  @Override
+  public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+    super.onCreate(savedInstanceState, persistentState);
+  }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    print(data);
+    switch (requestCode) {
+      case REQUESTCODE_TAKE_PHOTO:
+        CameraBridge.handleActivityResult(resultCode,data);
+        break;
     }
+  }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        print(data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case REQUESTCODE_TAKE_PHOTO:
-                    CameraBridge.handleActivityResult(data.getExtras());
-                    break;
-            }
-        }
+  private void print(Intent data) {
+    if (data == null) return;
+    JSONObject jo = new JSONObject();
+    Bundle b = data.getExtras();
+    if (b == null) return;
+    Set<String> set = b.keySet();
+    for (String s : set) {
+      L.i(s + "," + b.get(s));
+      try {
+        jo.put(s, b.get(s));
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
     }
-
-    private void print(Intent data) {
-        if (data == null) return;
-        JSONObject jo = new JSONObject();
-        Bundle b = data.getExtras();
-        if (b == null) return;
-        Set<String> set = b.keySet();
-        for (String s : set) {
-            L.i(s + "," + b.get(s));
-            try {
-                jo.put(s, b.get(s));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+  }
 }

@@ -4,8 +4,7 @@
 
   <permission
       android:name="com.elianshang.yougong.sales.permission.JPUSH_MESSAGE"
-      android:protectionLevel="signature" />
-
+      android:protectionLevel="signature"/>
 
 
   <!--用于进行网络定位-->
@@ -52,9 +51,9 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
       <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
+        <action android:name="android.intent.action.MAIN"/>
 
-        <category android:name="android.intent.category.LAUNCHER" />
+        <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
 
@@ -162,7 +161,7 @@
         android:value="7e1c42fac410dd7a968be09e"/> <!--  </>值来自开发者平台取得的AppKey-->
     <meta-data
         android:name="debug"
-        android:value="${DEBUGABLE}" />
+        android:value="${DEBUGABLE}"/>
   </application>
 
 </manifest>

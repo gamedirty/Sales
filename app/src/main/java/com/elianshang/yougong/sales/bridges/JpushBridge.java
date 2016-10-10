@@ -47,7 +47,7 @@ public class JpushBridge {
         s.add(ts[i]);
       }
     }
-    s.add("dev");
+    s.add(InitApplication.getInstance().isDebugable() ? "dev" : "product");
     JPushInterface.setAliasAndTags(InitApplication.getInstance(), alias, s,
         new TagAliasCallback() {
           @Override public void gotResult(int i, String s, Set<String> set) {
@@ -55,7 +55,7 @@ public class JpushBridge {
             for (String m : set) {
               mm += m;
             }
-            L.i("绑定结果:" + i + "," + s +","+mm);
+            L.i("绑定结果:" + i + "," + s + "," + mm);
           }
         });
   }

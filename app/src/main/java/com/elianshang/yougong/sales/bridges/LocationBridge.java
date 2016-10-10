@@ -23,6 +23,7 @@ public class LocationBridge {
     if (bridgeWebView != null) {
       if (bridgeHandler == null) bridgeHandler = new LocationBridgeHandler();
       bridgeWebView.registerHandler(BRIDGE_NAME, bridgeHandler);
+
     }
   }
 
@@ -39,9 +40,6 @@ public class LocationBridge {
     L.i("定位option是 :" + options);
     GPSOptions g = null;
     if (g == null) g = new GPSOptions();
-
-
-
 
     AMapLocationClientOption aMapLocationClientOption = new AMapLocationClientOption();
     aMapLocationClientOption.setHttpTimeOut(g.getTimeout());
@@ -60,7 +58,7 @@ public class LocationBridge {
 
       @Override
       public void onLocationChanged(final AMapLocation aMapLocation) {
-        function.onCallBack(aMapLocation.toStr());
+        function.onCallBack(aMapLocation.toStr().toLowerCase());
         mapLocationClient.stopLocation();
       }
     };

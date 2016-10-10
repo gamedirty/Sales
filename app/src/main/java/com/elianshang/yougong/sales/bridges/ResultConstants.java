@@ -11,4 +11,11 @@ public class ResultConstants {
   public static final int ERRORCODE_SUCCESS = 0;
   public static final int ERRORCODE_FAIL = 1;
   public static final String errorInfo = "errorinfo";
+
+  public static String makeErrorResult(String errorInfo) {
+
+    //  {"errorcode":1,"errorinfo":""}
+
+    return "{\"errorcode\":1,\"errorinfo\":\"" + errorInfo + "\"}";
+  }
 }

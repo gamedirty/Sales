@@ -25,7 +25,7 @@ import org.json.JSONObject;
  */
 
 public class PushReceiver extends BroadcastReceiver {
-  private static final String Notification_Open = "lsh_newb_open";
+  private static final String Notification_Open = "cn.jpush.android.intent.NOTIFICATION_OPENED";
 
   @Override public void onReceive(Context context, Intent intent) {
     print(intent.getExtras());
@@ -46,8 +46,8 @@ public class PushReceiver extends BroadcastReceiver {
       String messageId = bundle.getString(JPushInterface.EXTRA_MSG_ID);
 
       int t = getExtraT(extras);
-      String i = getExtraI(extras);
-      boolean n = getExtraN(extras);
+      //String i = getExtraI(extras);
+      //boolean n = getExtraN(extras);
       //if (n) {
       //  if (!BaseApplication.get().isLogin()) {
       //    //                    LogTool.e("lhz", "要求登录的push，用户未登录");
@@ -60,11 +60,11 @@ public class PushReceiver extends BroadcastReceiver {
       }
       showNotification(context, title, message, messageId, extras);
     } else {
-      String title = bundle.getString("title");
-      String message = bundle.getString("message");
-      String messageId = bundle.getString("messageId");
+      //String title = bundle.getString("title");
+      //String message = bundle.getString("message");
+      //String messageId = bundle.getString("messageId");
       String extras = bundle.getString("extras");
-      String url = bundle.getString("cn.jpush.android.ALERT");
+      //String url = bundle.getString("cn.jpush.android.ALERT");
       String i = getExtraI(extras);
       boolean n = getExtraN(extras);
       L.i("接到推送:" + i);

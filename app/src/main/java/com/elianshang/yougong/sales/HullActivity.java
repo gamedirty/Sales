@@ -1,6 +1,5 @@
 package com.elianshang.yougong.sales;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,28 +9,37 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 
+import android.view.View;
+import android.webkit.WebView;
 import com.elianshang.yougong.sales.bridges.BaseBridgeActivity;
 import com.elianshang.yougong.sales.bridges.CameraBridge;
 import com.elianshang.yougong.sales.bridges.JpushBridge;
 import com.elianshang.yougong.sales.bridges.LocationBridge;
 import com.elianshang.yougong.sales.bridges.NetworkBridge;
 import com.elianshang.yougong.sales.utils.L;
+import com.elianshang.yougong.sales.utils.NetWorkTool;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
-import com.github.lzyzsd.jsbridge.DeviceTool;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
-import static android.Manifest.*;
+import static android.Manifest.permission.*;
 
 public class HullActivity extends BaseBridgeActivity
     implements EasyPermissions.PermissionCallbacks {
 
   private static final int RC_SETTINGS_SCREEN = 1109;
   private BridgeWebView webView;
-  private static final String ORIGIN_URL = "http://gl.market-sales-h5.wmdev2.lsh123.com/#test";
-  //private static final String ORIGIN_URL = "http://gl.market-sales-h5.wmdev2.lsh123.com";
+  //private static final String ORIGIN_URL = "http://gl.market-sales-h5.wmdev2.lsh123.com/#test";
+  //private static final String ORIGIN_URL =
+  //    "http://gl.market-sales-h5.wmdev2.lsh123.com/#my/remind/list";
+  private static final String ORIGIN_URL = "http://qa.market-sales-h5.wmdev2.lsh123.com";
   private static String URL2LOAD;
+
+  private View netErrorView;
+  private View netErrorButton;
 
   public static void launch4Push(Context context, String url) {
     URL2LOAD = url;
@@ -54,56 +62,89 @@ public class HullActivity extends BaseBridgeActivity
 
   @Override protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
-    L.i("onNewIntent");
+    if (webView == null) return;
+    chechNetwork();
     if (TextUtils.isEmpty(URL2LOAD)) {
-      webView.loadUrl(ORIGIN_URL);
+      //webView.loadUrl(ORIGIN_URL);
+      loadUrl(ORIGIN_URL);
     } else {
-      webView.loadUrl(URL2LOAD);
+      loadUrl(URL2LOAD);
+      //webView.loadUrl(URL2LOAD);
+    }
+  }
+
+  void loadUrl(String url) {
+    if (webView != null) {
+      //webView.loadUrl(url);
+      webView.loadUrl(url,null);
     }
   }
 
   private void checkAndRequestPermissions() {
-    String[] perms = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_COARSE_LOCATION, permission.CAMERA};
+    String[] perms = new String[] {WRITE_EXTERNAL_STORAGE,
+        READ_PHONE_STATE, ACCESS_FINE_LOCATION,
+        ACCESS_COARSE_LOCATION, CAMERA};
     if (!EasyPermissions.hasPermissions(this, perms)) {
 
       EasyPermissions.requestPermissions(this, getString(R.string.permis_request), R.string.confirm,
           R.string.exit, 1, perms);
+    } else {
+      if (null != webView) {
+        webView.setUseragent(true);
+      }
     }
   }
 
   private void fetchData() {
     String url = getIntent().getStringExtra("url");
-    L.i("zhjh", "推送消息:" + url);
+    chechNetwork();
     if (TextUtils.isEmpty(url)) {
-      webView.loadUrl(ORIGIN_URL);
+      loadUrl(ORIGIN_URL);
     } else {
-      webView.loadUrl(url);
+      loadUrl(url);
     }
   }
 
   private void initViews() {
     webView = (BridgeWebView) findViewById(R.id.webview);
+    netErrorView = findViewById(R.id.net_error);
+    netErrorButton = findViewById(R.id.net_error_btn);
+    netErrorButton.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        if (NetWorkTool.isNetAvailable(HullActivity.this)) {
+          netErrorView.setVisibility(View.GONE);
+          webView.setVisibility(View.VISIBLE);
+        }
+      }
+    });
+    bindBridges();
+  }
+
+  private void bindBridges() {
     LocationBridge.bindToWebview(webView);
     CameraBridge.bindToWebview(webView, this, REQUESTCODE_TAKE_PHOTO);
     JpushBridge.bindToWebview(webView);
     NetworkBridge.bindToWebview(webView);
   }
 
+  private void chechNetwork() {
+    boolean net = NetWorkTool.isNetAvailable(this);
+    if (!net) {
+      netErrorView.setVisibility(View.VISIBLE);
+    }
+  }
+
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-    if (keyCode == KeyEvent.KEYCODE_BACK) {
-      webView.loadUrl("javascript:globalEventBack_LSH_SALES()");
-      return true;
-      //if (webView.canGoBack()) {
-      //  webView.goBack();//返回上一页面
-      //  return true;
-      //} else {
-      //  finish();
-      //}
-    }
+    //if (keyCode == KeyEvent.KEYCODE_BACK) {
+    //  if (webView.canGoBack()) {
+    //    webView.goBack();//返回上一页面
+    //    return true;
+    //  } else {
+    //    finish();
+    //  }
+    //}
     return super.onKeyDown(keyCode, event);
   }
 
@@ -114,23 +155,23 @@ public class HullActivity extends BaseBridgeActivity
   }
 
   @Override public void onPermissionsGranted(int requestCode, List<String> perms) {
-
+    webView.setUseragent(true);
   }
 
   @Override public void onPermissionsDenied(int requestCode, List<String> perms) {
-    if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-      new AppSettingsDialog.Builder(this, getString(R.string.permis_request))
-          .setTitle(getString(R.string.title_settings_dialog))
-          .setPositiveButton(getString(R.string.setting))
-          .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override public void onClick(DialogInterface dialog, int which) {
-              finish();
-            }
-          } /* click listener */)
-          .setRequestCode(RC_SETTINGS_SCREEN)
-          .build()
-          .show();
-    }
+
+    L.i("zhjh", "deny回调");
+    new AppSettingsDialog.Builder(this, getString(R.string.permis_request))
+        .setTitle(getString(R.string.title_settings_dialog))
+        .setPositiveButton(getString(R.string.setting))
+        .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+            finish();
+          }
+        } /* click listener */)
+        .setRequestCode(RC_SETTINGS_SCREEN)
+        .build()
+        .show();
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {

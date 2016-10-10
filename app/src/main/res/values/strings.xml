@@ -6,4 +6,6 @@
     <string name="title_settings_dialog">权限申请</string>
     <string name="setting">设置</string>
     <string name="cancel">取消</string>
+    <string name="net_error_message">亲，您的手机网络不太流畅哦</string>
+    <string name="please_ensure_network">请检查您的手机是否联网</string>
 </resources>

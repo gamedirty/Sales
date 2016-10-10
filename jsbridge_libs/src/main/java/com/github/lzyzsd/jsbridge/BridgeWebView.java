@@ -3,6 +3,7 @@ package com.github.lzyzsd.jsbridge;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -76,19 +77,14 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
     this.defaultHandler = handler;
   }
 
+  BridgeWebViewClient bridgeWebViewClient;
+
   private void init() {
     WebSettings setting = this.getSettings();
-    String ua = setting.getUserAgentString();
-    ua += ("/lianshang_android" + "/" + "1.8");
-    ua += (" device_name" + "/" + DeviceTool.getDeviceName());
-    ua += (" device_version/" + DeviceTool.getOSVersionName());
-    ua += (" device_id/" + DeviceTool.getDeviceID(getContext(), DeviceTool.getIMEI(getContext())));
-    setting.setUserAgentString(ua);
-
+    setUseragent(false);
     String appCachePath = getContext().getApplicationContext().getCacheDir().getAbsolutePath();
     setting.setAppCachePath(appCachePath);
     setting.setDomStorageEnabled(true);
-    setting.setUserAgentString(ua);
     setting.setJavaScriptEnabled(true);
     setting.setAllowFileAccess(true);
     setting.setAllowContentAccess(true);
@@ -101,11 +97,27 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
       WebView.setWebContentsDebuggingEnabled(true);
     }
-    this.setWebViewClient(generateBridgeWebViewClient());
+    bridgeWebViewClient = generateBridgeWebViewClient();
+    this.setWebViewClient(bridgeWebViewClient);
+    ApplicationInfo ai;
   }
 
-  private void requestLocationPermission() {
-
+  public void setUseragent(boolean needPerm) {
+    WebSettings setting = getSettings();
+    String ua = setting.getUserAgentString();
+    ua += ("/lianshang_android" + "/" + "1.8");
+    ua += (" device_name" + "/" + DeviceTool.getDeviceName());
+    ua += (" device_version/" + DeviceTool.getOSVersionName());
+    try {
+      if (needPerm) {
+        ua +=
+            (" device_id/" + DeviceTool.getDeviceID(getContext(), DeviceTool.getIMEI(getContext())));
+      }
+    }catch (SecurityException e){
+      e.printStackTrace();
+    }
+    Log.i("zhjh", "useragent:" + ua);
+    setting.setUserAgentString(ua);
   }
 
   protected BridgeWebViewClient generateBridgeWebViewClient() {
@@ -252,5 +264,12 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
    */
   public void callHandler(String handlerName, String data, CallBackFunction callBack) {
     doSend(handlerName, data, callBack);
+  }
+
+  public void setOnNetErrorListener(
+      BridgeWebViewClient.OnNetErrorListener onNetErrorListener) {
+    if (bridgeWebViewClient != null) {
+      bridgeWebViewClient.setOnNetErrorListener(onNetErrorListener);
+    }
   }
 }
