@@ -36,8 +36,8 @@ public class HullActivity extends BaseBridgeActivity
   private static final int RC_SETTINGS_SCREEN = 1109;
   private BridgeWebView webView;
   //private static final String ORIGIN_URL = "http://gl.market-sales-h5.wmdev2.lsh123.com/#test";
-  private static final String ORIGIN_URL = "http://img.youthol.top/online-demo.html";
-  //private static final String ORIGIN_URL = "http://qa.market-sales-h5.wmdev2.lsh123.com";
+  //private static final String ORIGIN_URL = "http://img.youthol.top/online-demo.html";
+  private static final String ORIGIN_URL = "http://qa.market-sales-h5.wmdev2.lsh123.com";
   private static String URL2LOAD;
 
   private View netErrorView;
@@ -140,7 +140,6 @@ public class HullActivity extends BaseBridgeActivity
 
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
-
     L.i("zhjh", "onKeyDown:" + webView.canGoBack());
     if (keyCode == KeyEvent.KEYCODE_BACK) {
       if (webView.canGoBack()) {

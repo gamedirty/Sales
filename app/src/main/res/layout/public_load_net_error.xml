@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/net_error_logo"
+        android:layout_width="109dp"
+        android:layout_height="109dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/net_error" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/net_error_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dip_60"
+        android:text="@string/net_error_message"
+        android:textColor="#515151"
+        android:textSize="@dimen/dip_16" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/net_error_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:text="@string/please_ensure_network"
+        android:textColor="#9e9e9e"
+        android:textSize="@dimen/dip_11" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/net_error_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="67dip"
+        android:layout_marginRight="67dip"
+        android:layout_marginTop="@dimen/dip_20"
+        android:gravity="center"
+        android:text="重新加载"
+        android:background="@drawable/white_selector_for_button"
+        android:textColor="#080808"
+        android:textSize="@dimen/dip_13" />
+
+</LinearLayout>

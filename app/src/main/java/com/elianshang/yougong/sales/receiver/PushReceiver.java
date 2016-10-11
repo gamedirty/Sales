@@ -28,6 +28,7 @@ public class PushReceiver extends BroadcastReceiver {
   private static final String Notification_Open = "cn.jpush.android.intent.NOTIFICATION_OPENED";
 
   @Override public void onReceive(Context context, Intent intent) {
+    L.i("zhjh","收到通知");
     print(intent.getExtras());
     if (intent == null || context == null || intent.getExtras() == null) {
       return;
