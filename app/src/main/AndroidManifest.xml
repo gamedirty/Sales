@@ -132,7 +132,7 @@
     <!-- Required SDK核心功能-->
     <receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>
 
-    <!-- User defined.  For test only  用户自定义的广播接收器-->
+    <!-- 推送接收器-->
     <receiver
         android:name=".receiver.PushReceiver"
         android:exported="false"
@@ -152,6 +152,12 @@
         <category android:name="com.elianshang.yougong.sales"/>
       </intent-filter>
     </receiver>
+
+    <receiver android:name=".receiver.ConnectionReceiver"
+    >
+    </receiver>
+
+
 
     <!-- Required  . Enable it you can get statistics data with channel -->
     <meta-data

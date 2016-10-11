@@ -1,9 +1,11 @@
 package com.elianshang.yougong.sales;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -34,13 +36,13 @@ public class HullActivity extends BaseBridgeActivity
   private static final int RC_SETTINGS_SCREEN = 1109;
   private BridgeWebView webView;
   //private static final String ORIGIN_URL = "http://gl.market-sales-h5.wmdev2.lsh123.com/#test";
-  //private static final String ORIGIN_URL =
-  //    "http://gl.market-sales-h5.wmdev2.lsh123.com/#my/remind/list";
-  private static final String ORIGIN_URL = "http://qa.market-sales-h5.wmdev2.lsh123.com";
+  private static final String ORIGIN_URL = "http://img.youthol.top/online-demo.html";
+  //private static final String ORIGIN_URL = "http://qa.market-sales-h5.wmdev2.lsh123.com";
   private static String URL2LOAD;
 
   private View netErrorView;
   private View netErrorButton;
+  private BroadcastReceiver netBroadCastReceiver;
 
   public static void launch4Push(Context context, String url) {
     URL2LOAD = url;
@@ -59,6 +61,7 @@ public class HullActivity extends BaseBridgeActivity
     checkAndRequestPermissions();
     initViews();
     fetchData();
+    registeReceiver();
   }
 
   @Override protected void onNewIntent(Intent intent) {
@@ -138,7 +141,7 @@ public class HullActivity extends BaseBridgeActivity
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-    L.i("zhjh","onKeyDown:"+webView.canGoBack());
+    L.i("zhjh", "onKeyDown:" + webView.canGoBack());
     if (keyCode == KeyEvent.KEYCODE_BACK) {
       if (webView.canGoBack()) {
         webView.goBack();//返回上一页面
@@ -162,7 +165,6 @@ public class HullActivity extends BaseBridgeActivity
 
   @Override public void onPermissionsDenied(int requestCode, List<String> perms) {
 
-    L.i("zhjh", "deny回调");
     new AppSettingsDialog.Builder(this, getString(R.string.permis_request))
         .setTitle(getString(R.string.title_settings_dialog))
         .setPositiveButton(getString(R.string.setting))
@@ -185,6 +187,30 @@ public class HullActivity extends BaseBridgeActivity
 
   @Override protected void onDestroy() {
     super.onDestroy();
-    
+    unRegisteReceiver();
+  }
+
+  private void registeReceiver() {
+    netBroadCastReceiver = new NetworkReceiver();
+    IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+    registerReceiver(netBroadCastReceiver, intentFilter);
+  }
+
+  private void unRegisteReceiver() {
+    if (netBroadCastReceiver != null) {
+      unregisterReceiver(netBroadCastReceiver);
+    }
+  }
+
+  /**
+   * 监听网络变化
+   */
+  class NetworkReceiver extends BroadcastReceiver {
+
+    @Override public void onReceive(Context context, Intent intent) {
+      if (webView != null) {
+        webView.setNetworkAvailable(NetWorkTool.isNetAvailable(context));
+      }
+    }
   }
 }

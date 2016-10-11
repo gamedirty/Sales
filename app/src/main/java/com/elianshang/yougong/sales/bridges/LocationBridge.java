@@ -58,6 +58,7 @@ public class LocationBridge {
 
       @Override
       public void onLocationChanged(final AMapLocation aMapLocation) {
+        //aMapLocation.setErrorCode(2);
         function.onCallBack(aMapLocation.toStr().toLowerCase());
         mapLocationClient.stopLocation();
       }

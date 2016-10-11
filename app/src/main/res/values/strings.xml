@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">销售端</string>
+    <string name="app_name">优供销售</string>
     <string name="confirm">确定</string>
     <string name="exit">退出</string>
     <string name="permis_request">为了更好的服务您,需要申请读取手机设备信息、访问存储、定位和拍照的权限</string>
