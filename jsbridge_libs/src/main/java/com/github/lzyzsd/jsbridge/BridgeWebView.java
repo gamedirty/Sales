@@ -90,6 +90,7 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
     setting.setAllowContentAccess(true);
     setting.setAppCacheEnabled(true);
     setting.setDatabaseEnabled(true);
+    setting.setCacheMode(WebSettings.LOAD_NO_CACHE);
     setting.setJavaScriptCanOpenWindowsAutomatically(true);
     setting.setGeolocationEnabled(true);
     this.setVerticalScrollBarEnabled(false);
@@ -99,7 +100,6 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
     }
     bridgeWebViewClient = generateBridgeWebViewClient();
     this.setWebViewClient(bridgeWebViewClient);
-    ApplicationInfo ai;
   }
 
   public void setUseragent(boolean needPerm) {
@@ -264,12 +264,5 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
    */
   public void callHandler(String handlerName, String data, CallBackFunction callBack) {
     doSend(handlerName, data, callBack);
-  }
-
-  public void setOnNetErrorListener(
-      BridgeWebViewClient.OnNetErrorListener onNetErrorListener) {
-    if (bridgeWebViewClient != null) {
-      bridgeWebViewClient.setOnNetErrorListener(onNetErrorListener);
-    }
   }
 }

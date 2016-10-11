@@ -8,12 +8,12 @@
         "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/layout/dropdown_item.xml"
     },
     {
-        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/layout/validation_message_bubble.xml",
-        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/layout/validation_message_bubble.xml"
-    },
-    {
         "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/layout/color_picker_advanced_component.xml",
         "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/layout/color_picker_advanced_component.xml"
+    },
+    {
+        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/layout/validation_message_bubble.xml",
+        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/layout/validation_message_bubble.xml"
     },
     {
         "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/layout/autofill_keyboard_accessory_icon.xml",

@@ -59,7 +59,7 @@ public class PushReceiver extends BroadcastReceiver {
         return;
       }
       showNotification(context, title, message, messageId, extras);
-    } else {
+    } else if (action.equals(Notification_Open)) {
       //String title = bundle.getString("title");
       //String message = bundle.getString("message");
       //String messageId = bundle.getString("messageId");
@@ -67,7 +67,6 @@ public class PushReceiver extends BroadcastReceiver {
       //String url = bundle.getString("cn.jpush.android.ALERT");
       String i = getExtraI(extras);
       boolean n = getExtraN(extras);
-      L.i("接到推送:" + i);
       openNotification(context, 1, i, n);
     }
   }

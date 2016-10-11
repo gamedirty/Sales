@@ -1,6 +1,8 @@
 package com.github.lzyzsd.jsbridge;
 
 import android.util.Log;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -52,22 +54,8 @@ public class BridgeWebViewClient extends WebViewClient {
   }
 
   @Override
-  public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-    super.onReceivedError(view, errorCode, description, failingUrl);
-    Log.i("zhjh", "onReceivedError:" + errorCode + "," + description + "," + failingUrl);
-    if (onNetErrorListener != null) {
-      onNetErrorListener.onNetError(failingUrl, errorCode);
-    }
-  }
-
-  public static interface OnNetErrorListener {
-    void onNetError(String url, int code);
-  }
-
-  private OnNetErrorListener onNetErrorListener;
-
-  public void setOnNetErrorListener(
-      OnNetErrorListener onNetErrorListener) {
-    this.onNetErrorListener = onNetErrorListener;
+  public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+    super.onReceivedError(view, request, error);
+    Log.i("zhjh","onReceivedError:"+request.getUrl());
   }
 }

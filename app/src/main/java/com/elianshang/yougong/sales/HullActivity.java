@@ -18,6 +18,7 @@ import com.elianshang.yougong.sales.bridges.LocationBridge;
 import com.elianshang.yougong.sales.bridges.NetworkBridge;
 import com.elianshang.yougong.sales.utils.L;
 import com.elianshang.yougong.sales.utils.NetWorkTool;
+import com.elianshang.yougong.sales.utils.T;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
 import java.util.List;
 import java.util.Map;
@@ -63,20 +64,20 @@ public class HullActivity extends BaseBridgeActivity
   @Override protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     if (webView == null) return;
-    chechNetwork();
-    if (TextUtils.isEmpty(URL2LOAD)) {
-      //webView.loadUrl(ORIGIN_URL);
+    justLoad(URL2LOAD);
+  }
+
+  private void justLoad(String url2LOAD) {
+    if (TextUtils.isEmpty(url2LOAD)) {
       loadUrl(ORIGIN_URL);
     } else {
-      loadUrl(URL2LOAD);
-      //webView.loadUrl(URL2LOAD);
+      loadUrl(url2LOAD);
     }
   }
 
   void loadUrl(String url) {
     if (webView != null) {
-      //webView.loadUrl(url);
-      webView.loadUrl(url,null);
+      webView.loadUrl(url);
     }
   }
 
@@ -97,12 +98,8 @@ public class HullActivity extends BaseBridgeActivity
 
   private void fetchData() {
     String url = getIntent().getStringExtra("url");
-    chechNetwork();
-    if (TextUtils.isEmpty(url)) {
-      loadUrl(ORIGIN_URL);
-    } else {
-      loadUrl(url);
-    }
+    if (!chechNetwork()) return;
+    justLoad(url);
   }
 
   private void initViews() {
@@ -114,6 +111,9 @@ public class HullActivity extends BaseBridgeActivity
         if (NetWorkTool.isNetAvailable(HullActivity.this)) {
           netErrorView.setVisibility(View.GONE);
           webView.setVisibility(View.VISIBLE);
+          justLoad(URL2LOAD);
+        } else {
+          T.show(HullActivity.this, "请检查网络");
         }
       }
     });
@@ -127,24 +127,26 @@ public class HullActivity extends BaseBridgeActivity
     NetworkBridge.bindToWebview(webView);
   }
 
-  private void chechNetwork() {
+  private boolean chechNetwork() {
     boolean net = NetWorkTool.isNetAvailable(this);
     if (!net) {
       netErrorView.setVisibility(View.VISIBLE);
     }
+    return net;
   }
 
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-    //if (keyCode == KeyEvent.KEYCODE_BACK) {
-    //  if (webView.canGoBack()) {
-    //    webView.goBack();//返回上一页面
-    //    return true;
-    //  } else {
-    //    finish();
-    //  }
-    //}
+    L.i("zhjh","onKeyDown:"+webView.canGoBack());
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      if (webView.canGoBack()) {
+        webView.goBack();//返回上一页面
+        return true;
+      } else {
+        finish();
+      }
+    }
     return super.onKeyDown(keyCode, event);
   }
 
@@ -179,5 +181,10 @@ public class HullActivity extends BaseBridgeActivity
     if (requestCode == RC_SETTINGS_SCREEN) {
       checkAndRequestPermissions();
     }
+  }
+
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    
   }
 }
