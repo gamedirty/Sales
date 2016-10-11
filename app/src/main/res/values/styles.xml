@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:colorBackground">#fff</item>
-        <item name="android:statusBarColor">#be1c3a</item>
+        <item name="android:statusBarColor">@color/global_red</item>
 
     </style>
 

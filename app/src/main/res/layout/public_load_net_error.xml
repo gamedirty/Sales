@@ -38,10 +38,11 @@
         android:layout_marginLeft="67dip"
         android:layout_marginRight="67dip"
         android:layout_marginTop="@dimen/dip_20"
+
         android:gravity="center"
         android:text="重新加载"
         android:background="@drawable/white_selector_for_button"
-        android:textColor="#080808"
+        android:textColor="@color/global_red"
         android:textSize="@dimen/dip_13" />
 
 </LinearLayout>

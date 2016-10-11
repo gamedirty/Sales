@@ -66,6 +66,7 @@ public class HullActivity extends BaseBridgeActivity
 
   @Override protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
+    if (!chechNetwork()) return;
     if (webView == null) return;
     justLoad(URL2LOAD);
   }
@@ -134,6 +135,8 @@ public class HullActivity extends BaseBridgeActivity
     boolean net = NetWorkTool.isNetAvailable(this);
     if (!net) {
       netErrorView.setVisibility(View.VISIBLE);
+    }else {
+      netErrorView.setVisibility(View.GONE);
     }
     return net;
   }
