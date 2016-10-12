@@ -65,8 +65,6 @@ public class HullActivity extends BaseBridgeActivity
     registeReceiver();
   }
 
-
-
   @Override protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     if (!chechNetwork()) return;
@@ -148,9 +146,9 @@ public class HullActivity extends BaseBridgeActivity
 
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
-    L.i("zhjh", "onKeyDown:" + webView.canGoBack());
+    L.i("zhjh", "onKeyDown:" + webView.canGoBack()+","+webView.getUrl());
     if (keyCode == KeyEvent.KEYCODE_BACK) {
-      if (webView.canGoBack()) {
+      if (webView.canGoBack() || webView.getUrl().equals(ORIGIN_URL)) {
         webView.goBack();//返回上一页面
         return true;
       } else {

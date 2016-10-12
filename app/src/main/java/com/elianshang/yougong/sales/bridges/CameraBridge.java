@@ -103,7 +103,7 @@ public class CameraBridge {
           Bitmap image = BitmapFactory.decodeFile(imagePath);
           if (degree != 0) {
             Matrix matrix = new Matrix();
-            matrix.postRotate(degree); /*翻转90度*/
+            matrix.postRotate(degree);
             int width = image.getWidth();
             int height = image.getHeight();
             Bitmap newImg = Bitmap.createBitmap(image, 0, 0, width, height, matrix, true);
