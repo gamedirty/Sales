@@ -90,8 +90,6 @@ android {
        * */
       signingConfig signingConfigs.releaseConfig
 
-      manifestPlaceholders = [DEBUGABLE: "false"]
-
 
       /**
        * 打多渠道包
@@ -116,9 +114,6 @@ android {
     ttest{}
   }
 
-  /**
-   * 将渠道名赋给Umeng渠道
-   * */
   productFlavors.all { flavor ->
     if ("ttest" == name) {
       manifestPlaceholders = [DEBUGABLE: "true"]
@@ -139,7 +134,5 @@ dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
   compile 'com.android.support:appcompat-v7:24.2.0'
   compile 'pub.devrel:easypermissions:0.2.0'
-  //  compile 'com.squareup.okhttp3:okhttp:3.4.1'
-  //  compile 'com.google.code.gson:gson:2.7'
   compile project(':jsbridge_libs')
 }

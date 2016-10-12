@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -67,9 +69,8 @@ public class CameraBridge {
         @Override protected JSONObject doInBackground(Void... params) {
           JSONObject jo = new JSONObject();
           File save = new File(imagePath);
-          ByteArrayOutputStream baos = compressBitmap();
+          ByteArrayOutputStream baos = compressBitmap(readPictureDegree(imagePath));
           String base = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
-
           try {
             jo.put(ResultConstants.errorCode, ResultConstants.ERRORCODE_SUCCESS);
             jo.put("root", imagePath);
@@ -95,11 +96,22 @@ public class CameraBridge {
           return jo;
         }
 
-        @NonNull private ByteArrayOutputStream compressBitmap() {
+        @NonNull private ByteArrayOutputStream compressBitmap(int degree) {
           BitmapFactory.Options option = new BitmapFactory.Options();
           option.inSampleSize = 5;
           ByteArrayOutputStream baos = new ByteArrayOutputStream();
           Bitmap image = BitmapFactory.decodeFile(imagePath);
+          if (degree != 0) {
+            Matrix matrix = new Matrix();
+            matrix.postRotate(degree); /*翻转90度*/
+            int width = image.getWidth();
+            int height = image.getHeight();
+            Bitmap newImg = Bitmap.createBitmap(image, 0, 0, width, height, matrix, true);
+            if (newImg != image) {
+              image.recycle();
+              image = newImg;
+            }
+          }
           image.compress(Bitmap.CompressFormat.JPEG, 50, baos);
           int options = 30;
           while (baos.toByteArray().length / 1024 > 900) {
@@ -121,5 +133,31 @@ public class CameraBridge {
     } else {
       callBackFunction.onCallBack(ResultConstants.makeErrorResult("拍照出错"));
     }
+  }
+
+  /**
+   *   * 读取照片exif信息中的旋转角度   * @param path 照片路径   * @return角度   
+   */
+  public static int readPictureDegree(String path) {
+    int degree = 0;
+    try {
+      ExifInterface exifInterface = new ExifInterface(path);
+      int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+          ExifInterface.ORIENTATION_NORMAL);
+      switch (orientation) {
+        case ExifInterface.ORIENTATION_ROTATE_90:
+          degree = 90;
+          break;
+        case ExifInterface.ORIENTATION_ROTATE_180:
+          degree = 180;
+          break;
+        case ExifInterface.ORIENTATION_ROTATE_270:
+          degree = 270;
+          break;
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return degree;
   }
 }

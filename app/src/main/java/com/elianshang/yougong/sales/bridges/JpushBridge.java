@@ -6,6 +6,7 @@ import cn.jpush.android.api.TagAliasCallback;
 import com.elianshang.yougong.sales.InitApplication;
 import com.elianshang.yougong.sales.utils.L;
 import com.elianshang.yougong.sales.utils.Pref;
+import com.elianshang.yougong.sales.utils.T;
 import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.github.lzyzsd.jsbridge.CallBackFunction;
@@ -69,7 +70,7 @@ public class JpushBridge {
 
   public static void setTagAndAlias() {
     String at = Pref.getAliasAndTags();
-    L.i("zhjh","有存货:"+at);
+    L.i("zhjh", "有存货:" + at);
     if (null != at) {
       try {
         bind(at);
