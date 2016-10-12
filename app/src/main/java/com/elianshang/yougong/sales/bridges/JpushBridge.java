@@ -5,6 +5,7 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import com.elianshang.yougong.sales.InitApplication;
 import com.elianshang.yougong.sales.utils.L;
+import com.elianshang.yougong.sales.utils.Pref;
 import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.github.lzyzsd.jsbridge.CallBackFunction;
@@ -27,8 +28,8 @@ public class JpushBridge {
       public void handler(String data, CallBackFunction function) {
         L.i(data);
         try {
-          JSONObject jo = new JSONObject(data);
-          bindTag(function, jo.getString("alias"), jo.getString("tags"));
+          Pref.saveAliasAndTags(data);
+          bind(data);
         } catch (JSONException e) {
           e.printStackTrace();
         }
@@ -36,7 +37,12 @@ public class JpushBridge {
     });
   }
 
-  private static void bindTag(final CallBackFunction function, String alias, String tags) {
+  private static void bind(String data) throws JSONException {
+    JSONObject jo = new JSONObject(data);
+    bindTag(jo.getString("alias"), jo.getString("tags"));
+  }
+
+  private static void bindTag(String alias, String tags) {
     Set<String> s = new HashSet<>();
     tags = tags.replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\"", "");
     if (!TextUtils.isEmpty(tags)) {
@@ -59,4 +65,17 @@ public class JpushBridge {
           }
         });
   }
+
+  public static void setTagAndAlias(){
+    String at = Pref.getAliasAndTags();
+    if (null!=at){
+      try {
+        bind(at);
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+
 }

@@ -61,7 +61,6 @@ public class CameraBridge {
 
   public static void handleActivityResult(int resultCode, Intent bundle) {
     if (callBackFunction == null) return;
-
     if (resultCode == Activity.RESULT_OK) {
       new AsyncTask<Void, Void, JSONObject>() {
 
@@ -84,6 +83,14 @@ public class CameraBridge {
               e1.printStackTrace();
             }
           }
+          if (baos != null) {
+            try {
+              baos.close();
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          }
+          save.delete();
           i(jo.toString());
           return jo;
         }
@@ -100,6 +107,7 @@ public class CameraBridge {
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);
             options -= 10;
           }
+          image.recycle();
           return baos;
         }
 

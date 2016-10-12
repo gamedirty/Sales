@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 
 import android.view.View;
 import android.webkit.WebView;
+import cn.jpush.android.api.JPushInterface;
 import com.elianshang.yougong.sales.bridges.BaseBridgeActivity;
 import com.elianshang.yougong.sales.bridges.CameraBridge;
 import com.elianshang.yougong.sales.bridges.JpushBridge;
@@ -97,6 +98,7 @@ public class HullActivity extends BaseBridgeActivity
       if (null != webView) {
         webView.setUseragent(true);
       }
+      JPushInterface.init(this);        // 初始化 JPush
     }
   }
 
@@ -108,6 +110,7 @@ public class HullActivity extends BaseBridgeActivity
 
   private void initViews() {
     webView = (BridgeWebView) findViewById(R.id.webview);
+    webView.setNetworkAvailable(NetWorkTool.isNetAvailable(this));
     netErrorView = findViewById(R.id.net_error);
     netErrorButton = findViewById(R.id.net_error_btn);
     netErrorButton.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +138,7 @@ public class HullActivity extends BaseBridgeActivity
     boolean net = NetWorkTool.isNetAvailable(this);
     if (!net) {
       netErrorView.setVisibility(View.VISIBLE);
-    }else {
+    } else {
       netErrorView.setVisibility(View.GONE);
     }
     return net;

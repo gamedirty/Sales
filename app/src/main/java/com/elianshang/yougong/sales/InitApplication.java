@@ -22,13 +22,8 @@ public class InitApplication extends Application {
     super.onCreate();
     instance = this;
     setDebugAble();
-    checkCpu();
     JPushInterface.setDebugMode(true);  // 设置开启日志,发布时请关闭日志
     JPushInterface.init(this);        // 初始化 JPush
-  }
-
-  private void checkCpu() {
-
   }
 
   private void setDebugAble() {
@@ -38,6 +33,7 @@ public class InitApplication extends Application {
           .getApplicationInfo(getPackageName(),
               PackageManager.GET_META_DATA);
       debugable = appInfo.metaData.getBoolean("debug");
+      L.i("zhjh", "debugable:" + debugable);
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
     }

@@ -63,12 +63,14 @@ public class PushReceiver extends BroadcastReceiver {
     } else if (action.equals(Notification_Open)) {
       //String title = bundle.getString("title");
       //String message = bundle.getString("message");
-      //String messageId = bundle.getString("messageId");
+      String messageId = bundle.getString("messageId");
       String extras = bundle.getString("extras");
       //String url = bundle.getString("cn.jpush.android.ALERT");
       String i = getExtraI(extras);
       boolean n = getExtraN(extras);
       openNotification(context, 1, i, n);
+      JPushInterface.reportNotificationOpened(context, messageId);
+
     }
   }
 
