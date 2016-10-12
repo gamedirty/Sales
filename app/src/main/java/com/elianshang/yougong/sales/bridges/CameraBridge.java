@@ -101,6 +101,7 @@ public class CameraBridge {
           option.inSampleSize = 5;
           ByteArrayOutputStream baos = new ByteArrayOutputStream();
           Bitmap image = BitmapFactory.decodeFile(imagePath);
+          L.i("zhjh","degree："+degree);
           if (degree != 0) {
             Matrix matrix = new Matrix();
             matrix.postRotate(degree);

@@ -35,6 +35,7 @@ public class HullActivity extends BaseBridgeActivity
     implements EasyPermissions.PermissionCallbacks {
 
   private static final int RC_SETTINGS_SCREEN = 1109;
+  private static final String EXIT_TAG = "apploginouttag=1";
   private BridgeWebView webView;
   //private static final String ORIGIN_URL = "http://gl.market-sales-h5.wmdev2.lsh123.com/#test";
   //private static final String ORIGIN_URL = "http://img.youthol.top/online-demo.html";
@@ -146,13 +147,13 @@ public class HullActivity extends BaseBridgeActivity
 
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
-    L.i("zhjh", "onKeyDown:" + webView.canGoBack()+","+webView.getUrl());
+    L.i("zhjh", "onKeyDown:" + webView.canGoBack() + "," + webView.getUrl());
     if (keyCode == KeyEvent.KEYCODE_BACK) {
-      if (webView.canGoBack() || webView.getUrl().equals(ORIGIN_URL)) {
+      if (!webView.canGoBack() || webView.getUrl().contains(EXIT_TAG)) {
+        finish();
+      } else {
         webView.goBack();//返回上一页面
         return true;
-      } else {
-        finish();
       }
     }
     return super.onKeyDown(keyCode, event);
