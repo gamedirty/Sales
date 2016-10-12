@@ -65,6 +65,8 @@ public class HullActivity extends BaseBridgeActivity
     registeReceiver();
   }
 
+
+
   @Override protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     if (!chechNetwork()) return;

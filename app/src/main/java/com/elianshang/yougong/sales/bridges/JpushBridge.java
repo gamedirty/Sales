@@ -23,6 +23,7 @@ public class JpushBridge {
   public static final String BRIDGE_NAME = "connectJPush_bridge";
 
   public static void bindToWebview(BridgeWebView bridgeWebView) {
+    setTagAndAlias();
     bridgeWebView.registerHandler(BRIDGE_NAME, new BridgeHandler() {
       @Override
       public void handler(String data, CallBackFunction function) {
@@ -66,9 +67,10 @@ public class JpushBridge {
         });
   }
 
-  public static void setTagAndAlias(){
+  public static void setTagAndAlias() {
     String at = Pref.getAliasAndTags();
-    if (null!=at){
+    L.i("zhjh","有存货:"+at);
+    if (null != at) {
       try {
         bind(at);
       } catch (JSONException e) {
@@ -76,6 +78,4 @@ public class JpushBridge {
       }
     }
   }
-
-
 }
