@@ -1,18 +1,18 @@
 [
     {
-        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/drawable-xxxhdpi-v4/verify_checkmark.png",
-        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/drawable-xxxhdpi-v4/verify_checkmark.png"
+        "merged": "/Volumes/工作相关/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/drawable-xxxhdpi-v4/ic_menu_share_holo_light.png",
+        "source": "/Volumes/工作相关/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/drawable-xxxhdpi-v4/ic_menu_share_holo_light.png"
     },
     {
-        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/drawable-xxxhdpi-v4/ic_search.png",
-        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/drawable-xxxhdpi-v4/ic_search.png"
+        "merged": "/Volumes/工作相关/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/drawable-xxxhdpi-v4/ic_warning.png",
+        "source": "/Volumes/工作相关/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/drawable-xxxhdpi-v4/ic_warning.png"
     },
     {
-        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/drawable-xxxhdpi-v4/ic_menu_share_holo_light.png",
-        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/drawable-xxxhdpi-v4/ic_menu_share_holo_light.png"
+        "merged": "/Volumes/工作相关/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/drawable-xxxhdpi-v4/verify_checkmark.png",
+        "source": "/Volumes/工作相关/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/drawable-xxxhdpi-v4/verify_checkmark.png"
     },
     {
-        "merged": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/drawable-xxxhdpi-v4/ic_warning.png",
-        "source": "/Users/sovnem/Downloads/salesclient/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/drawable-xxxhdpi-v4/ic_warning.png"
+        "merged": "/Volumes/工作相关/Sales/crosswalk_lib/build/intermediates/res/merged/androidTest/debug/drawable-xxxhdpi-v4/ic_search.png",
+        "source": "/Volumes/工作相关/Sales/crosswalk_lib/build/intermediates/bundles/debug/res/drawable-xxxhdpi-v4/ic_search.png"
     }
 ]
