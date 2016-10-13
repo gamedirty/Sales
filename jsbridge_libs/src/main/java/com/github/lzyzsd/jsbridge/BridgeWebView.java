@@ -91,6 +91,9 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
     setting.setAppCacheEnabled(true);
     setting.setDatabaseEnabled(true);
     setting.setCacheMode(WebSettings.LOAD_NO_CACHE);
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+      setting.setDatabasePath("/data/data/" + getContext().getPackageName() + "/databases/");
+    }
     setting.setJavaScriptCanOpenWindowsAutomatically(true);
     setting.setGeolocationEnabled(true);
     this.setVerticalScrollBarEnabled(false);
